@@ -17,10 +17,16 @@ mongoose.connect("mongodb+srv://aravindhsharma:Srinidhi2002@cluster0.cput3.mongo
     useUnifiedTopology: true
 });
 
-const userSchema = {
+const userSchema = new mongoose.Schema({
     email: String,
     password: String
-};
+});
+
+const secret = "Thisisaravindhslittlelongsecret@1997";
+userSchema.plugin(encrypt, {
+    secret: secret,
+    encryptedFields: ['password']
+});
 
 const User = new mongoose.model("User", userSchema);
 
